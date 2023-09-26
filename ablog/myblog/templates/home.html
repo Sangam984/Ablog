@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+<h1>Post : {{user.username}}</h1>
+{{user.profile.bio}}
+
+
+{%for post in object_list %}
+<li><a href="{% url 'article-view' post.pk  %}">    {{post.title}}</a> -
+    <a href="{% url 'category' post.category%}">{{post.category}}</a>- {{post.author}} - {{post.post_date}} -
+    {%if user.is_authenticated%}
+    {%if user.id == post.author.id%}
+    <small><a href="{% url 'update' post.pk %}">(edit)</a></small> <a href="{% url 'delete' post.pk %}">(Delete)</a></br>
+    {%endif%}
+    {%endif%}
+    <br>
+    {{post.snippets}}</li>
+    
+{%endfor%}
+
+{% endblock content %}

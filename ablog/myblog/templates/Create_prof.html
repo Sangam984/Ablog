@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock title %}}
+{% block content %}
+</br>
+<hr>
+
+{% if user.is_authenticated %}
+<div class = "form-group" enctype = "multipart/form-data">
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class = 'btn btn-info'>Post</button>
+</div>
+
+{% endif %}  
+
+
+    
+{% endblock content %}

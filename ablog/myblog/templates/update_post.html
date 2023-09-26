@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Update post{% endblock title %}}
+{% block content %}
+{%if user.is_authenticated%}
+{%if user.id == post.author.id%}
+<h1>Update post...</h1>
+</br>
+<hr>
+
+<div class = "form-group">
+<form method="POST">
+    {% csrf_token %}
+    {{form.media}}
+    {{form.as_p}}
+    <button class = 'btn btn-info'>Update</button>
+</div>
+{% else %}
+<strong>Sorry Brother You Are not Allowed Here</strong>
+{% endif %}
+{%else%}
+<strong><h1>sorry</h1></strong>
+{%endif%}
+
+
+
+
+    
+{% endblock content %}

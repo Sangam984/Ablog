@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}{{post.title_tag}}{% endblock title %}
+{% block content %}
+<h1>{{post.title}}</h1>
+
+<small>By : {{post.author.first_name}} {{post.author.last_name}} </small> </br>
+{% comment %} {% load static %} {% endcomment %}
+
+<hr>
+</br>
+{{post.body|safe}}
+{% comment %} <img src="{% static "{{post.image_upload}}" %}"> {% endcomment %}
+<img src="{{post.image_upload}}">
+<hr>
+<br></br>
+{%if user.is_authenticated%}
+<form action="{% url "like-post" post.pk %}" method = 'post'>
+    {% csrf_token %}
+    {%if liked%}
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger"> <i class="fas fa-thumbs-up">unlike</i></button>  -{{total_like}}
+    {%else%}
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-info"> <i class="fas fa-thumbs-up">like</i></button>  -{{total_like}}
+    {%endif%}
+</form>
+{%endif%}
+<br><br>
+
+
+{% load static %}
+
+<div class="text-left">
+    <img src="{{post.author.profile.profile_pic}}" class="rounded">
+  </div>
+  <br>
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="media/images/earh.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{post.author.username}}</h5>
+      <p class = "small text-muted">
+        <a href="{{post.author.profile.facebook_url}}">Facebook</a>|
+        <a href="{{post.author.profile.website_url}}">Website|</a>
+        <a href="{{post.author.profile.instagram_url}}">Instagram</a>
+      </p>
+      <p class="card-text">{{post.author.profile.bio}} </p>
+     
+    </div>
+</div>
+<br>
+<br>
+
+<a href="{%url 'home'%}" class = 'btn btn-secondary'>back</a>
+{% endblock content %}

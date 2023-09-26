@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{cats}}
+{%for post in cat_post%}
+<li><a href="{% url 'article-view' post.pk  %}">    {{post.title}}</a> - {{post.author}} - {{post.post_date}} -
+    {%if user.is_authenticated%}
+    <small><a href="{% url 'update' post.pk %}">(edit)</a></small> <a href="{% url 'delete' post.pk %}">(Delete)</a></br>
+    {%endif%}
+    <br>
+    {{post.snippets}}
+</li>
+{%endfor%}
+<a href="{%url 'home'%}" class = 'btn btn-secondary'>back</a>
+{% endblock content %}
